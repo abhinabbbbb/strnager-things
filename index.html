@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stranger Things S5 - The Final Season WEB-DL</title>
+    <!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d; /* Slightly less black base for fallback contrast */
+            color: #f3f4f6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND LAYERS --- */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0d0d0d; /* Solid dark color */
+            opacity: 0.9;
+            z-index: -3;
+        }
+
+        /* --- NEW: ANIMATED GLITCH EFFECT OVERLAY (The main background animation) --- */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Subtle static/noise pattern */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQYV2NgYGD4zwACyMDABAACxQJc753hFwAAAABJRU5ErkJggg==');
+            background-size: 100px 100px;
+            opacity: 0.15; /* Base opacity increased for better visibility and storm feel */
+            animation: glitch-anim 0.5s infinite alternate; /* Fast, unsettling animation */
+            z-index: -2; /* Above solid background, below content */
+            pointer-events: none;
+        }
+
+        @keyframes glitch-anim {
+            /* Increased opacities and movement for a violent storm/thunder feel */
+            0% { transform: translate(0, 0); opacity: 0.15; }
+            25% { transform: translate(3px, -3px); opacity: 0.22; }
+            50% { transform: translate(-3px, 3px); opacity: 0.18; }
+            75% { transform: translate(4px, 2px); opacity: 0.25; }
+            100% { transform: translate(-2px, -4px); opacity: 0.20; }
+        }
+        
+        /* --- ANIMATION KEYFRAMES --- */
+        @keyframes fadeInScale {
+            /* Now elements start at opacity 0 via keyframes, and end at 1 */
+            from { opacity: 0; transform: scale(0.95) translate3d(0, 20px, 0); }
+            to { opacity: 1; transform: scale(1) translate3d(0, 0, 0); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(220, 38, 38, 0.7), 0 0 5px rgba(245, 158, 11, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(220, 38, 38, 1), 0 0 10px rgba(245, 158, 11, 0.8); }
+        }
+
+        /* --- THUNDER EFFECT ANIMATION (Sharp Flicker) --- */
+        @keyframes text-glow-red { 
+            0%, 100% { text-shadow: 0 0 10px #f87171, 0 0 20px #ef4444, 0 0 30px #dc2626; opacity: 1; }
+            5% { text-shadow: none; opacity: 0.8; } /* Quick flicker off */
+            10% { text-shadow: 0 0 15px #fca5a5, 0 0 25px #dc2626, 0 0 40px #b91c1c; opacity: 1; } /* Bright flash */
+            15% { text-shadow: none; opacity: 0.9; } /* Quick flicker off */
+            20% { text-shadow: 0 0 10px #f87171, 0 0 20px #ef4444, 0 0 30px #dc2626; opacity: 1; }
+            50% { text-shadow: 0 0 12px #fca5a5, 0 0 20px #dc2626, 0 0 30px #b91c1c; }
+            80% { text-shadow: 0 0 10px #f87171, 0 0 20px #ef4444, 0 0 30px #dc2626; }
+        }
+        /* --- END THUNDER EFFECT --- */
+
+        @keyframes text-glow-white { /* For other glowing text */
+            0%, 100% { text-shadow: 0 0 5px rgba(255,255,255,0.7), 0 0 10px rgba(255,255,255,0.5); }
+            50% { text-shadow: 0 0 8px rgba(255,255,255,0.9), 0 0 15px rgba(255,255,255,0.7); }
+        }
+
+        /* --- CUSTOM CLASSES --- */
+        .animate-fadeInScale {
+            animation: fadeInScale 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        .section-card {
+            background-color: #1a202c; /* Premium dark background for cards */
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            border: 1px solid rgba(220, 38, 38, 0.3); /* Subtle red border */
+        }
+        /* Premium 3D Tilt Hover Effect */
+        .section-card:hover {
+            transform: scale(1.02) perspective(1000px) rotateX(2deg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            border-color: rgba(220, 38, 38, 0.8); /* Stronger border on hover */
+        }
+        
+        /* Custom gradient for the main CTA button (Kept for final download link) */
+        .cta-gradient {
+            background-image: linear-gradient(to right, #DC2626, #F59E0B);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cta-gradient:hover {
+            background-image: linear-gradient(to left, #DC2626, #F59E0B);
+            transform: scale(1.08); /* More dramatic zoom */
+        }
+        .cta-pulse {
+            animation: pulse-glow 2.5s infinite ease-in-out;
+        }
+
+        .ad-placeholder {
+            background-color: #2d3748;
+            border: 2px dashed #4a5568;
+            height: 150px;
+        }
+        .header-glow {
+            animation: text-glow-red 3s infinite alternate; /* STRANGER part */
+        }
+        .main-title-glow {
+            animation: text-glow-red 3s infinite alternate;
+        }
+        .subtitle-glow {
+            animation: text-glow-white 2.5s infinite alternate;
+        }
+        /* Nav links also get the subtitle glow effect */
+        nav a {
+            transition: color 0.3s;
+            animation: text-glow-white 2.5s infinite alternate;
+        }
+    </style>
+</head>
+<body class="min-h-screen antialiased">
+    
+    <!-- Background Layers for Cinematic Vibe -->
+    <div class="video-overlay"></div> 
+    <div class="glitch-overlay"></div> 
+
+    <!-- Main Container (Z-10 ensures content is above background) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <!-- Header (Simple Navigation) -->
+        <header class="flex justify-between items-center py-6 border-b border-gray-700 mb-8">
+            <div class="text-3xl font-extrabold text-white">
+                <span class="text-red-600 header-glow">STRANGER</span>THINGS
+            </div>
+            <nav class="hidden md:flex space-x-6 text-gray-400">
+                <!-- Applied subtitle-glow to navigation links -->
+                <a href="#info" class="hover:text-red-500 transition subtitle-glow" style="animation-delay: 0.3s;">Series Info</a>
+                <a href="#story" class="hover:text-red-500 transition subtitle-glow" style="animation-delay: 0.6s;">Plot</a>
+                <a href="#server" class="hover:text-red-500 transition subtitle-glow" style="animation-delay: 0.9s;">Status</a>
+                <a href="#formats" class="hover:text-red-500 transition subtitle-glow" style="animation-delay: 1.2s;">Download</a>
+            </nav>
+        </header>
+
+        <!-- 1. Hero Section (Above the Fold) -->
+        <section class="text-center py-16 md:py-24">
+            <!-- H1 Headline - Big Title -->
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fadeInScale main-title-glow" style="animation-delay: 0.1s;">
+                <span class="text-red-600">STRANGER THINGS</span> - Season 5 (Final Season)
+            </h1>
+
+            <!-- Sub-Headline - Audio/Quality Details -->
+            <p class="mt-4 text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto font-mono bg-gray-900 p-3 rounded-lg inline-block tracking-wider animate-fadeInScale subtitle-glow" style="animation-delay: 0.5s;">
+                EXCLUSIVE ACCESS | DUAL AUDIO (English / Hindi 5.1) | <span class="cta-pulse">WEB-DL</span>
+            </p>
+        </section>
+
+        <!-- AD Block 1 (Faki Content) -->
+        <div class="w-full ad-placeholder rounded-xl flex items-center justify-center text-gray-500 font-bold uppercase tracking-widest mb-16">
+            [ ADVERTISEMENT BLOCK 728x90 - Your Ads Here ]
+        </div>
+
+        <!-- 2. Series Info & Plot Section (Detailed Content) - EXPANDED -->
+        <section id="info" class="py-16 mb-16">
+            <h2 class="text-4xl font-bold text-center text-white mb-12">Stranger Things Season 5: The Final Showdown - What to Expect</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Plot Summary Card -->
+                <div class="section-card rounded-xl shadow-lg p-6 space-y-4 animate-fadeInScale" style="animation-delay: 1.5s;">
+                    <h3 class="text-2xl font-bold text-red-500" id="story">The Final Battle Synopsis (We Hope)</h3>
+                    <p class="text-gray-300 leading-relaxed text-sm">
+                        Stranger Things Season 5 is set to conclude the epic saga of Hawkins and the Upside Down. With Vecna successfully opening massive gates, the dimensional barrier is gone, leading to a catastrophic merger. The final season will focus entirely on **saving the world** as the horrors of the Upside Down pour into the real world, which frankly, sounds exhausting for the kids.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed text-sm">
+                        The stakes have never been higher. Expect intense emotional arcs for all main characters, massive set-pieces, and the final, definitive confrontation between Eleven and the show's ultimate antagonist. This will be the darkest and most expansive season yet. **If they manage to wrap up every single plot thread successfully, we'll be genuinely shocked.**
+                    </p>
+                </div>
+
+                <!-- Key Details Card -->
+                <div class="section-card rounded-xl shadow-lg p-6 space-y-4 animate-fadeInScale" style="animation-delay: 1.8s;">
+                    <h3 class="text-2xl font-bold text-yellow-500">Technical Specifications & File Details</h3>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-bold text-gray-400">Audio Tracks:</span> English & Hindi DD 5.1 (Yes, the Hindi dub is necessary.)</li>
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-bold text-gray-400">Source:</span> Official WEB-DL Rip (Probably better than your cable quality.)</li>
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-bold text-gray-400">Subtitles:</span> English (Forced & Standard)</li>
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-bold text-gray-400">Total Episodes:</span> 8 Episodes (Confirmed, thankfully not 10 hours each.)</li>
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-bold text-gray-400">Run Time:</span> ~60-90 minutes (Extended, because why not?)</li>
+                        <li class="flex justify-between border-b border-gray-700 pb-1"><span class="font-bold text-gray-400">Release Date:</span> September 2025 (Fictional, but feels real enough now.)</li>
+                    </ul>
+                </div>
+
+                <!-- Cast Highlight Card -->
+                <div class="section-card rounded-xl shadow-lg p-6 space-y-4 animate-fadeInScale" id="cast" style="animation-delay: 2.1s;">
+                    <h3 class="text-2xl font-bold text-teal-400">Main Cast & Characters (Who Survived)</h3>
+                    <ul class="space-y-3 text-gray-300 text-sm">
+                        <li class="flex items-center"><span class="font-bold w-1/3 text-gray-400">Millie Bobby Brown:</span> Eleven (The only one who can fix this mess.)</li>
+                        <li class="flex items-center"><span class="font-bold w-1/3 text-gray-400">Finn Wolfhard:</span> Mike Wheeler (Still cycling, probably.)</li>
+                        <li class="flex items-center"><span class="font-bold w-1/3 text-gray-400">Gaten Matarazzo:</span> Dustin Henderson (The brains, naturally.)</li>
+                        <li class="flex items-center"><span class="font-bold w-1/3 text-gray-400">Caleb McLaughlin:</span> Lucas Sinclair (Finally getting his moments.)</li>
+                        <li class="flex items-center"><span class="font-bold w-1/3 text-gray-400">Noah Schnapp:</span> Will Byers (Will he ever stop being sad?)</li>
+                        <li class="flex items-center"><span class="font-bold w-1/3 text-gray-400">Sadie Sink:</span> Max Mayfield (Wait, is she okay?)</li>
+                        <li class="flex items-center"><span class="font-bold w-1/3 text-gray-400">David Harbour:</span> Jim Hopper (The dad energy we need.)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Server Status & Sarcastic Warnings -->
+        <section id="server" class="section-card p-8 rounded-xl shadow-2xl mb-16 animate-fadeInScale" style="animation-delay: 2.4s;">
+            <h3 class="text-3xl font-bold text-center text-red-400 mb-6">LIVE Server Status: Prepare for Disappointment (Maybe)</h3>
+            <div class="grid md:grid-cols-2 gap-6 text-sm">
+                <div class="p-4 bg-gray-800 rounded-lg border-l-4 border-green-500">
+                    <p class="font-bold text-green-400">Server Health:</p>
+                    <p class="text-gray-300">Currently **ONLINE** and functioning, but let's be realistic, it's peak hours. Good luck getting maximum speed. We're doing our best (we think).</p>
+                </div>
+                <div class="p-4 bg-gray-800 rounded-lg border-l-4 border-red-500">
+                    <p class="font-bold text-red-400">Current Queue:</p>
+                    <p class="text-gray-300">High. If your download fails at 99%, it's definitely your internet, not our infrastructure. **Retry is mandatory.**</p>
+                </div>
+                <div class="p-4 bg-gray-800 rounded-lg border-l-4 border-yellow-500 col-span-2">
+                    <p class="font-bold text-yellow-400">Important Warning (Please Ignore):</p>
+                    <p class="text-gray-300">We advise against refreshing the page multiple times, it doesn't help. Our anti-bot system is state-of-the-art (circa 2005). If the link takes you somewhere weird, that's just the Upside Down reaching out. **It's part of the experience.**</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- AD Block 2 (Faki Content) -->
+        <div class="w-full ad-placeholder rounded-xl flex items-center justify-center text-gray-500 font-bold uppercase tracking-widest mb-16">
+            [ PREMIUM AD PLACEMENT 970x250 - Buy Now! ]
+        </div>
+
+        <!-- 3. Quality Options / Formats (MOVED TO LAST POSITION) -->
+        <section id="formats" class="section-card p-8 rounded-xl shadow-2xl mb-16 animate-fadeInScale" style="animation-delay: 2.7s;">
+            <h3 class="text-center text-gray-300 text-xl uppercase tracking-wider mb-8 font-bold border-b border-gray-700 pb-4">ALL WEB-DL FORMATS AVAILABLE (FINALLY! Your Patience is "Rewarded")</h3>
+            <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-12">
+                <!-- Quality Badges with better styling -->
+                <div class="text-center transition duration-300 hover:scale-110">
+                    <span class="bg-red-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">480P</span>
+                    <p class="text-sm text-gray-400 mt-1">300MB / Ep</p>
+                </div>
+                <div class="text-center transition duration-300 hover:scale-110">
+                    <span class="bg-yellow-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">720P</span>
+                    <p class="text-sm text-gray-400 mt-1">750MB / Ep</p>
+                </div>
+                <div class="text-center transition duration-300 hover:scale-110">
+                    <span class="bg-green-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">1080P</span>
+                    <p class="text-sm text-gray-400 mt-1">1.5GB / Ep</p>
+                </div>
+                <div class="text-center transition duration-300 hover:scale-110">
+                    <span class="bg-blue-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">4K UHD</span>
+                    <p class="text-sm text-gray-400 mt-1">6GB+ / Ep</p>
+                </div>
+            </div>
+            
+            <!-- Final Download Button Re-inserted here, since formats are the last step -->
+            <div class="mt-10 text-center">
+                <a href="#"
+                    class="cta-gradient text-white font-bold py-5 px-20 rounded-full shadow-2xl transition duration-300 transform inline-flex items-center text-2xl sm:text-3xl uppercase tracking-widest cta-pulse">
+                    <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    DOWNLOAD LINK ACTIVATION (Click at your own risk. Seriously.)
+                </a>
+                <p class="mt-4 text-sm text-gray-400 font-medium">Warning: Clicking may or may not start the download. It might just start an ad cycle. Or summon a Demogorgon. Who knows?</p>
+            </div>
+        </section>
+
+        <!-- 5. Footer / Copyright -->
+        <footer class="text-center py-8 border-t border-gray-700">
+            <p class="text-sm text-gray-500">
+                Disclaimer: This is a fictional fan page for Stranger Things Season 5. All content specifications are for demonstration purposes only.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
