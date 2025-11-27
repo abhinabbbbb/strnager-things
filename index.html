@@ -38,21 +38,19 @@
             width: 100%;
             height: 100%;
             /* Subtle static/noise pattern */
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQYV2NgYGD4zwACyMDABAACxQJc753hFwAAAABJRU5ErkJggg==');
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQYV2NgYGD4zwACyMDABAACxQJc753hFwAAAABJRU5ErkJggg==');
             background-size: 100px 100px;
             opacity: 0.15; /* Base opacity increased for better visibility and storm feel */
-            animation: glitch-anim 0.5s infinite alternate; /* Fast, unsettling animation */
+            animation: glitch-anim 5s infinite alternate ease-in-out; /* SLOWER and smoother continuous noise */
             z-index: -2; /* Above solid background, below content */
             pointer-events: none;
         }
 
         @keyframes glitch-anim {
-            /* Increased opacities and movement for a violent storm/thunder feel */
-            0% { transform: translate(0, 0); opacity: 0.15; }
-            25% { transform: translate(3px, -3px); opacity: 0.22; }
-            50% { transform: translate(-3px, 3px); opacity: 0.18; }
-            75% { transform: translate(4px, 2px); opacity: 0.25; }
-            100% { transform: translate(-2px, -4px); opacity: 0.20; }
+            /* Smooth, continuous, and subtle background movement */
+            0% { transform: translate(0, 0); opacity: 0.1; }
+            50% { transform: translate(1px, -1px); opacity: 0.15; }
+            100% { transform: translate(-1px, 1px); opacity: 0.1; }
         }
         
         /* --- ANIMATION KEYFRAMES --- */
@@ -66,17 +64,22 @@
             50% { box-shadow: 0 0 30px rgba(220, 38, 38, 1), 0 0 10px rgba(245, 158, 11, 0.8); }
         }
 
-        /* --- THUNDER EFFECT ANIMATION (Sharp Flicker) --- */
+        /* --- THUNDER EFFECT ANIMATION (Modified to Slow, Continuous Pulse) --- */
         @keyframes text-glow-red { 
-            0%, 100% { text-shadow: 0 0 10px #f87171, 0 0 20px #ef4444, 0 0 30px #dc2626; opacity: 1; }
-            5% { text-shadow: none; opacity: 0.8; } /* Quick flicker off */
-            10% { text-shadow: 0 0 15px #fca5a5, 0 0 25px #dc2626, 0 0 40px #b91c1c; opacity: 1; } /* Bright flash */
-            15% { text-shadow: none; opacity: 0.9; } /* Quick flicker off */
-            20% { text-shadow: 0 0 10px #f87171, 0 0 20px #ef4444, 0 0 30px #dc2626; opacity: 1; }
-            50% { text-shadow: 0 0 12px #fca5a5, 0 0 20px #dc2626, 0 0 30px #b91c1c; }
-            80% { text-shadow: 0 0 10px #f87171, 0 0 20px #ef4444, 0 0 30px #dc2626; }
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(248, 113, 113, 0.9), /* Red light */
+                             0 0 25px rgba(220, 38, 38, 0.8), /* Darker Red center */
+                             0 0 40px rgba(185, 28, 28, 0.5); /* Deep Red outer glow */
+                opacity: 0.95; 
+            }
+            50% { 
+                text-shadow: 0 0 15px rgba(252, 165, 165, 1), /* Lighter Red center */
+                             0 0 35px rgba(220, 38, 38, 1), 
+                             0 0 50px rgba(185, 28, 28, 0.7);
+                opacity: 1; 
+            }
         }
-        /* --- END THUNDER EFFECT --- */
+        /* --- END CONTINUOUS GLOW EFFECT --- */
 
         @keyframes text-glow-white { /* For other glowing text */
             0%, 100% { text-shadow: 0 0 5px rgba(255,255,255,0.7), 0 0 10px rgba(255,255,255,0.5); }
@@ -113,16 +116,17 @@
             animation: pulse-glow 2.5s infinite ease-in-out;
         }
 
+        /* AD Placeholder removed, keeping placeholder style in case future placeholders are added */
         .ad-placeholder {
             background-color: #2d3748;
             border: 2px dashed #4a5568;
             height: 150px;
         }
         .header-glow {
-            animation: text-glow-red 3s infinite alternate; /* STRANGER part */
+            animation: text-glow-red 5s infinite alternate ease-in-out; /* Slower 5s duration */
         }
         .main-title-glow {
-            animation: text-glow-red 3s infinite alternate;
+            animation: text-glow-red 5s infinite alternate ease-in-out; /* Slower 5s duration */
         }
         .subtitle-glow {
             animation: text-glow-white 2.5s infinite alternate;
@@ -133,6 +137,10 @@
             animation: text-glow-white 2.5s infinite alternate;
         }
     </style>
+    
+    <!-- GLOBAL AD SCRIPT INJECTION 2 (MOVED TO HEAD FOR FASTER LOAD) -->
+    <script type='text/javascript' src='//pl28142749.effectivegatecpm.com/59/b6/3e/59b63e30eb3e82031f7d5f1bcda89653.js'></script>
+
 </head>
 <body class="min-h-screen antialiased">
     
@@ -170,9 +178,22 @@
             </p>
         </section>
 
-        <!-- AD Block 1 (Faki Content) -->
-        <div class="w-full ad-placeholder rounded-xl flex items-center justify-center text-gray-500 font-bold uppercase tracking-widest mb-16">
-            [ ADVERTISEMENT BLOCK 728x90 - Your Ads Here ]
+        <!-- NEW BANNER AD PLACEMENT -->
+        <div class="my-8 text-center bg-gray-900 p-3 rounded-lg border border-yellow-500/50">
+            <p class="text-sm text-yellow-400 mb-2">Exclusive High-Speed Access Slot</p>
+            <div id="ad-banner-top" class="max-w-full mx-auto" style="min-height: 60px;">
+                <!-- New Ad Script Container -->
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : '9e38e542da29ae3871205b245770eca2',
+                        'format' : 'iframe',
+                        'height' : 60,
+                        'width' : 468,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/9e38e542da29ae3871205b245770eca2/invoke.js" defer></script>
+            </div>
         </div>
 
         <!-- 2. Series Info & Plot Section (Detailed Content) - EXPANDED -->
@@ -223,6 +244,22 @@
         <!-- NEW: Server Status & Sarcastic Warnings -->
         <section id="server" class="section-card p-8 rounded-xl shadow-2xl mb-16 animate-fadeInScale" style="animation-delay: 2.4s;">
             <h3 class="text-3xl font-bold text-center text-red-400 mb-6">LIVE Server Status: Prepare for Disappointment (Maybe)</h3>
+            
+            <!-- NEW VERTICAL AD PLACEMENT -->
+            <div class="my-6 text-center">
+                <div id="ad-vertical-mid" class="inline-block bg-gray-900 p-2 rounded-lg border border-red-500/50" style="width: 160px; height: 300px;">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '065a63feb05a425c543173832e9103af',
+                            'format' : 'iframe',
+                            'height' : 300,
+                            'width' : 160,
+                            'params' : {}
+                        };
+                    </script>
+                </div>
+            </div>
+            
             <div class="grid md:grid-cols-2 gap-6 text-sm">
                 <div class="p-4 bg-gray-800 rounded-lg border-l-4 border-green-500">
                     <p class="font-bold text-green-400">Server Health:</p>
@@ -239,37 +276,50 @@
             </div>
         </section>
         
-        <!-- AD Block 2 (Faki Content) -->
-        <div class="w-full ad-placeholder rounded-xl flex items-center justify-center text-gray-500 font-bold uppercase tracking-widest mb-16">
-            [ PREMIUM AD PLACEMENT 970x250 - Buy Now! ]
+        <!-- NEW AD INJECTION POINT (Banner/In-Page Ad Container) -->
+        <div class="my-16 text-center">
+            <!-- This div is the container for the third ad script to inject content -->
+            <div id="container-2cae924a0ae09663dde09dac5cb36175" class="inline-block bg-gray-900 p-4 rounded-lg shadow-xl border border-red-800/50">
+                <p class="text-sm text-gray-500">Ad content will load here.</p>
+            </div>
         </div>
 
         <!-- 3. Quality Options / Formats (MOVED TO LAST POSITION) -->
         <section id="formats" class="section-card p-8 rounded-xl shadow-2xl mb-16 animate-fadeInScale" style="animation-delay: 2.7s;">
             <h3 class="text-center text-gray-300 text-xl uppercase tracking-wider mb-8 font-bold border-b border-gray-700 pb-4">ALL WEB-DL FORMATS AVAILABLE (FINALLY! Your Patience is "Rewarded")</h3>
             <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-12">
-                <!-- Quality Badges with better styling -->
-                <div class="text-center transition duration-300 hover:scale-110">
+                <!-- 480P: Now 'Uploading Soon' -->
+                <div class="text-center transition duration-300 hover:scale-110 opacity-70 cursor-not-allowed">
                     <span class="bg-red-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">480P</span>
-                    <p class="text-sm text-gray-400 mt-1">300MB / Ep</p>
+                    <p class="text-sm text-gray-400 mt-1">Uploading Soon</p>
                 </div>
+                
+                <!-- 720P: Changed to JS handler for Ad redirection -->
                 <div class="text-center transition duration-300 hover:scale-110">
-                    <span class="bg-yellow-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">720P</span>
-                    <p class="text-sm text-gray-400 mt-1">750MB / Ep</p>
+                    <a href="#" onclick="return downloadClick(this, 'https://drive.google.com/file/d/1zBX4ZrMwnxmaRGbZiRxh_ghIQeQNU0i2/view?usp=drive_link')" data-ad-clicks="0" data-original-text="720P" data-original-size="750MB / Ep" class="block">
+                        <span class="bg-yellow-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">720P</span>
+                        <p class="text-sm text-gray-400 mt-1">750MB / Ep</p>
+                    </a>
                 </div>
+                
+                <!-- 1080P: Changed to JS handler for Ad redirection -->
                 <div class="text-center transition duration-300 hover:scale-110">
-                    <span class="bg-green-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">1080P</span>
-                    <p class="text-sm text-gray-400 mt-1">1.5GB / Ep</p>
+                    <a href="#" onclick="return downloadClick(this, 'https://drive.google.com/file/d/1fWzVdSsPndarnxnLt4loqfRHI4thOD2y/view?usp=sharing')" data-ad-clicks="0" data-original-text="1080P" data-original-size="1.5GB / Ep" class="block">
+                        <span class="bg-green-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">1080P</span>
+                        <p class="text-sm text-gray-400 mt-1">1.5GB / Ep</p>
+                    </a>
                 </div>
-                <div class="text-center transition duration-300 hover:scale-110">
+                
+                <!-- 4K UHD: Now 'Uploading Soon' -->
+                <div class="text-center transition duration-300 hover:scale-110 opacity-70 cursor-not-allowed">
                     <span class="bg-blue-600 text-white text-lg font-bold py-2 px-6 rounded-lg shadow-lg">4K UHD</span>
-                    <p class="text-sm text-gray-400 mt-1">6GB+ / Ep</p>
+                    <p class="text-sm text-gray-400 mt-1">Uploading Soon</p>
                 </div>
             </div>
             
-            <!-- Final Download Button Re-inserted here, since formats are the last step -->
+            <!-- Final Download Button Redirects to AD Link -->
             <div class="mt-10 text-center">
-                <a href="#"
+                <a href="https://www.effectivegatecpm.com/jxcy6cvjrw?key=b1486344b3658f0555b70ef41634ff8b" target="_blank"
                     class="cta-gradient text-white font-bold py-5 px-20 rounded-full shadow-2xl transition duration-300 transform inline-flex items-center text-2xl sm:text-3xl uppercase tracking-widest cta-pulse">
                     <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     DOWNLOAD LINK ACTIVATION (Click at your own risk. Seriously.)
@@ -285,5 +335,67 @@
             </p>
         </footer>
     </div>
+
+    <!-- JAVASCRIPT FOR AD REDIRECTION LOGIC -->
+    <script>
+        // Ad Link (Main CTA ka link use kiya hai)
+        const adLink1 = 'https://www.effectivegatecpm.com/jxcy6cvjrw?key=b1486344b3658f0555b70ef41634ff8b';
+        // Second ad link, for the second click
+        const adLink2 = 'https://www.effectivegatecpm.com/jxcy6cvjrw?key=b1486344b3658f0555b70ef41634ff8b'; // Using the same link for safety and reliability
+        const totalAdClicksRequired = 2; // Required clicks set to 2 (User's request)
+
+        function downloadClick(element, downloadUrl) {
+            let adClicks = parseInt(element.getAttribute('data-ad-clicks')) || 0;
+            const span = element.querySelector('span');
+            const p = element.querySelector('p');
+            
+            if (adClicks < totalAdClicksRequired) {
+                // --- AD REDIRECTION CLICKS (Click 1 and 2) ---
+                
+                // Determine which ad link to open (currently both use adLink1 for simplicity)
+                const currentAdLink = (adClicks === 0) ? adLink1 : adLink2;
+                
+                // 1. Open the Ad Link in a new tab
+                window.open(currentAdLink, '_blank'); 
+                
+                // 2. Increment counter
+                adClicks++;
+                element.setAttribute('data-ad-clicks', adClicks);
+                
+                // 3. Button state change: Change button text to prompt next click
+                span.textContent = `CLICK AGAIN! (${adClicks}/${totalAdClicksRequired})`;
+                p.textContent = `Ad View ${adClicks} Completed.`;
+                span.classList.remove('bg-yellow-600', 'bg-green-600');
+                span.classList.add('bg-red-700', 'animate-pulse');
+                
+                return false; // Stop navigation
+
+            } else {
+                // --- FINAL DOWNLOAD LINK (Click 3) ---
+                
+                // Reset state 
+                span.textContent = element.getAttribute('data-original-text');
+                p.textContent = element.getAttribute('data-original-size');
+                span.classList.remove('bg-red-700', 'animate-pulse');
+                if (span.textContent === '720P') {
+                    span.classList.add('bg-yellow-600');
+                } else if (span.textContent === '1080P') {
+                    span.classList.add('bg-green-600');
+                }
+                element.setAttribute('data-ad-clicks', 0); // Reset counter
+
+                // 4. Open the actual download URL
+                window.open(downloadUrl, '_blank'); 
+                
+                return false; // Stop navigation
+            }
+        }
+    </script>
+    
+    <!-- GLOBAL AD SCRIPTS -->
+    <script type="text/javascript" src="https://www.effectivegatecpm.com/jxcy6cvjrw?key=b1486344b3658f0555b70ef41634ff8b"></script>
+    <script async="async" data-cfasync="false" src="//pl28142789.effectivegatecpm.com/2cae924a0ae09663dde09dac5cb36175/invoke.js"></script>
+    <!-- NEW AD SCRIPT INJECTION (Vertical Banner) -->
+    <script type="text/javascript" src="//www.highperformanceformat.com/065a63feb05a425c543173832e9103af/invoke.js"></script>
 </body>
 </html>
